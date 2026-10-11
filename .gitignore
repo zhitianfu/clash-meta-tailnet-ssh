@@ -1,0 +1,19 @@
+# scratch and local state
+*.log
+*.tmp
+*.bak
+*.new
+*~
+.DS_Store
+
+# binaries and extracted cores
+*.apk
+*.so
+*.gz
+*.7z
+core.bin
+
+# local config with real values
+*.local.yaml
+*.local.json
+.env

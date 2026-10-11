@@ -1,0 +1,21 @@
+# Fragment: carry a Tailscale tailnet inside Clash Meta (mihomo core).
+#
+# Insert the proxy under the profile's top-level `proxies:` list, and the two rules ABOVE the stock
+# `IP-CIDR,100.64.0.0/10,DIRECT` line (rules are first-match).
+#
+# state-dir MUST be a lexical subpath of the core home, e.g.
+#   /data/data/<APP_PACKAGE>/files/clash/ts-node
+# A different spelling of the same directory fails the config test.
+
+proxies:
+  - name: TS-NET
+    type: tailscale
+    hostname: <PHONE_NODE_NAME>
+    auth-key: <AUTH_KEY>                 # must be a key that CARRIES a tag, e.g. tag:phone
+    control-url: https://controlplane.tailscale.com
+    state-dir: /data/data/<APP_PACKAGE>/files/clash/ts-node
+    udp: true
+
+rules:
+  - IP-CIDR,100.64.0.0/10,TS-NET,no-resolve
+  - DOMAIN-SUFFIX,ts.net,TS-NET
